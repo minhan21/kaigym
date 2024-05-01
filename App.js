@@ -1,20 +1,28 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
+import React, { useEffect } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import MainNavigator from "./navigation/RootNavigator";
+import { useFonts } from "expo-font";
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    regular: require("./assets/fonts/Poppins-Regular.ttf"),
+    bold: require("./assets/fonts/Poppins-Bold.ttf"),
+    semiBold: require("./assets/fonts/Poppins-SemiBold.ttf"),
+    medium: require("./assets/fonts/Poppins-Medium.ttf"),
+    mediumItalic: require("./assets/fonts/Poppins-MediumItalic.ttf"),
+    lightItalic: require("./assets/fonts/Poppins-LightItalic.ttf"),
+  });
+
+  useEffect(() => {
+    // You can perform any additional setup or loading logic here
+  }, []);
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <MainNavigator />
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
