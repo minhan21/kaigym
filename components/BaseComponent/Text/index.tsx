@@ -1,12 +1,13 @@
-import React, { forwardRef } from "react";
+import { forwardRef } from "react";
 import { Text, Animated, StyleSheet } from "react-native";
 import { ITypography } from "./types";
 import { isNumber } from "lodash";
-import Helper from "@/utils/helper";
-import { getSize } from "@/utils/responsive";
-import Fonts from "@/constants/Fonts";
-import Colors from "@/constants/Colors";
-import { handleMargin, handlePadding } from "@/shared";
+
+import { handleMargin, handlePadding } from "@shared/index";
+import Colors from "@constants/Colors";
+import { getSize } from "utils/responsive";
+import Helper from "utils/helper";
+import Fonts from "@constants/Fonts";
 
 const ANDROID_LINE_HEIGHT_MULTIPLIER = 1.2;
 const IOS_LINE_HEIGHT_MULTIPLIER = 1.2;

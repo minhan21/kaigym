@@ -9,8 +9,8 @@ import {
 import { IBlock } from "./types";
 import styles from "./styles";
 import { isNumber } from "lodash";
-import { getSize } from "@/utils/responsive";
-import Colors from "@/constants/Colors";
+import Colors from "@constants/Colors";
+import { getSize } from "utils/responsive";
 
 const Block: React.FC<IBlock> = ({
   flex,
