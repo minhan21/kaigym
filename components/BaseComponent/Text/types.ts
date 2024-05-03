@@ -1,12 +1,10 @@
-import theme from '@theme';
-import {StyleProp} from 'react-native';
-import {TextProps, TextStyle} from 'react-native';
+import { StyleProp } from "react-native";
+import { TextProps, TextStyle } from "react-native";
 
 export interface ITypography extends TextProps {
   flex?: boolean;
   flexShrink?: boolean;
   flexGrow?: boolean;
-  fontType?: keyof typeof theme.fonts.fontWeight;
   size?: number;
   color?: string;
   center?: boolean;
@@ -31,5 +29,4 @@ export interface ITypography extends TextProps {
   animated?: boolean;
   ref?: any;
   children?: any;
-  customFont?: keyof typeof theme.fonts.fontFamily;
 }

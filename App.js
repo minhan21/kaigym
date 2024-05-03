@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import MainNavigator from "./navigation/RootNavigator";
 import { useFonts } from "expo-font";

@@ -2,12 +2,12 @@ import React, { ReactElement, useState } from "react";
 import { StyleSheet, Text, TextInput, TouchableOpacity } from "react-native";
 import { Controller } from "react-hook-form";
 import { FormInputProps } from "./types";
-import Block from "@/components/BaseComponent/Block";
-import Icon from "@/components/Icon";
-import Colors from "@/constants/Colors";
-import Fonts from "@/constants/Fonts";
-import FontSize from "@/constants/FontSize";
-import GradientView from "@/components/GradientView.tsx";
+import GradientView from "@components/GradientView.tsx";
+import Block from "@components/BaseComponent/Block";
+import Icon from "@components/Icon";
+import Colors from "@constants/Colors";
+import FontSize from "@constants/FontSize";
+import Fonts from "@constants/Fonts";
 
 type InputType = "input-weight" | "input-height" | "input" | "password";
 interface InputRightComponentProps {

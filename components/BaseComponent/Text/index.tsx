@@ -36,10 +36,8 @@ const Typography = forwardRef<any, ITypography>((props, ref) => {
     marginVertical,
     marginHorizontal,
     style,
-    fontType,
     lineHeight,
     animated,
-    customFont = "regular",
     ...textProps
   } = props;
 
@@ -53,7 +51,6 @@ const Typography = forwardRef<any, ITypography>((props, ref) => {
     flex && { flex: 1 },
     flexShrink && { flexShrink: 1 },
     flexGrow && { flexGrow: 1 },
-    fontType && { fontWeight: Fonts.regular },
     { color: (Colors as any)[color] || color },
     center && { textAlign: "center" },
     right && { textAlign: "right" },

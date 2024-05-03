@@ -1,3 +1,6 @@
-echo '#!/bin/sh' > .husky/pre-commit
-echo '. "$(dirname "$0")/_/husky.sh"' >> .husky/pre-commit
-echo "echo 'Husky is running...'" >> .husky/pre-commit
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "Running pre-commit hook..."
+npm run lint || exit 1
+echo "Linting passed, proceeding with commit..."

@@ -1,5 +1,5 @@
-import {StyleProp} from 'react-native';
-import {FlexAlignType, ViewProps, ViewStyle} from 'react-native';
+import { StyleProp } from "react-native";
+import { FlexAlignType, ViewProps, ViewStyle } from "react-native";
 
 export interface IBlock extends ViewProps {
   flex?: boolean;
@@ -9,7 +9,7 @@ export interface IBlock extends ViewProps {
   column?: boolean;
   shadow?: boolean;
   backgroundColor?: string;
-  space?: 'between' | 'around';
+  space?: "between" | "around";
   padding?: number;
   margin?: number;
   alignStart?: boolean;
@@ -32,8 +32,8 @@ export interface IBlock extends ViewProps {
   marginVertical?: number;
   marginHorizontal?: number;
   radius?: number;
-  height?: number | string;
-  width?: number | string;
+  height?: number;
+  width?: number;
   square?: number;
   round?: number;
   borderWidth?: number;
@@ -44,8 +44,8 @@ export interface IBlock extends ViewProps {
   right?: number;
   bottom?: number;
   borderColor?: string;
-  overflow?: 'hidden' | 'scroll' | 'visible';
-  alignSelf?: 'auto' | FlexAlignType;
+  overflow?: "hidden" | "scroll" | "visible";
+  alignSelf?: "auto" | FlexAlignType;
   style?: StyleProp<ViewStyle>;
   shadowColor?: string;
   opacity?: number;

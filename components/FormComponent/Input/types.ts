@@ -1,4 +1,4 @@
-import { ITextInput } from "@/components/ComponentTypes";
+import { ITextInput } from "@components/ComponentTypes";
 import { ReactNode } from "react";
 import { Control } from "react-hook-form";
 

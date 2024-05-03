@@ -1,14 +1,14 @@
+import Block from "@components/BaseComponent/Block";
+import Typography from "@components/BaseComponent/Text";
+import GradientView from "@components/GradientView.tsx";
+import Icon from "@components/Icon";
+import Colors from "@constants/Colors";
+import Fonts from "@constants/Fonts";
 import React from "react";
 import { ActivityIndicator, StyleSheet, TouchableOpacity } from "react-native";
+import { getSize } from "utils/responsive";
 import styles from "./styles";
-import { IButton, IconProps } from "./types";
-import Block from "@/components/BaseComponent/Block";
-import { getSize } from "@/utils/responsive";
-import Colors from "@/constants/Colors";
-import Icon from "@/components/Icon";
-import Typography from "@/components/BaseComponent/Text";
-import GradientView from "@/components/GradientView.tsx";
-import Fonts from "@/constants/Fonts";
+import { baseStyle, IButton, IconProps, shadowStyle } from "./types";
 
 const Button: React.FC<IButton> = (props) => {
   const {
@@ -56,7 +56,7 @@ const Button: React.FC<IButton> = (props) => {
       )}
     </Block>
   );
-
+  const combinedStyle = StyleSheet.flatten([baseStyle, shadowStyle]);
   const customStyles = [
     styles.buttonStyle,
     {
@@ -70,10 +70,9 @@ const Button: React.FC<IButton> = (props) => {
       <TouchableOpacity>
         <GradientView
           name="BlueLinear"
-          underlayColor={pressBg}
           radius={99}
           {...pressableProps}
-          style={[styles.shadowBtn, customStyles, containerStyle]}
+          style={combinedStyle}
         >
           {children ? children : _renderTitle()}
         </GradientView>
@@ -104,12 +103,7 @@ const renderIcon = (iconPos: IconProps) => {
     const iconColor = iconPos.color || "primary";
 
     return (
-      <Block
-        style={StyleSheet.flatten([
-          styles.defaultIconStyle,
-          iconPos.containerStyle,
-        ])}
-      >
+      <Block style={StyleSheet.flatten([iconPos.containerStyle])}>
         <Icon
           icon={iconPos.name}
           color={(Colors as any)[iconColor] || iconColor}

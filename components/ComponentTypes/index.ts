@@ -1,4 +1,4 @@
-import Colors from "@/constants/Colors";
+import Colors from "@constants/Colors";
 import { TextInputProps, TextStyle, ViewStyle } from "react-native";
 
 export interface ITextInput extends TextInputProps {

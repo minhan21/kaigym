@@ -1,7 +1,6 @@
 import AuthNavigator from "./AuthNavigator";
 import OnboardingNavigator from "./OnBoardingNavigator";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 const Stack = createNativeStackNavigator();
 

@@ -7,12 +7,12 @@ import {
   ScrollView,
 } from "react-native";
 import { Control, Controller } from "react-hook-form";
-import Icon from "@/components/Icon";
-import Typography from "@/components/BaseComponent/Text";
-import Colors from "@/constants/Colors";
-import Block from "@/components/BaseComponent/Block";
-import FontSize from "@/constants/FontSize";
-import Fonts from "@/constants/Fonts";
+import Block from "@components/BaseComponent/Block";
+import Icon from "@components/Icon";
+import Typography from "@components/BaseComponent/Text";
+import FontSize from "@constants/FontSize";
+import Colors from "@constants/Colors";
+import Fonts from "@constants/Fonts";
 
 interface Option {
   label: string;

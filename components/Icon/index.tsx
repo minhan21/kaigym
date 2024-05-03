@@ -1,9 +1,8 @@
-import Colors from "@/constants/Colors";
-import React from "react";
+import Colors from "@constants/Colors";
 import Svg, { ClipPath, Defs, G, Path } from "react-native-svg";
 
 // Define a type for the icon names
-type IconName =
+export type IconName =
   | "activity"
   | "User2"
   | "Profile"
