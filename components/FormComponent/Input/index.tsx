@@ -37,17 +37,19 @@ const FormInput: React.FC<FormInputProps> = ({
   name,
   control,
   placeholder,
+  leftIcon,
   rightComponent,
+  containerStyles,
   type = "input",
   ...props
 }) => {
   const [hidePassword, setHidePassword] = useState(false);
 
   const renderInput = ({ onChange, onBlur, value }: any, errors: any) => (
-    <Block>
+    <Block style={containerStyles} paddingVertical={15}>
       <Block row alignCenter space="between">
         <Block row alignCenter>
-          <Icon size={18} icon="Profile" />
+          <Icon size={leftIcon.size} icon={leftIcon.name} />
           <TextInput
             style={styles.inputContainer}
             placeholder={placeholder}
@@ -58,13 +60,13 @@ const FormInput: React.FC<FormInputProps> = ({
             onBlur={onBlur}
             {...props}
           />
+          {type === "password" && (
+            <TouchableOpacity onPress={() => setHidePassword((prev) => !prev)}>
+              <Icon size={18} icon={hidePassword ? "Show" : "Hide"} />
+            </TouchableOpacity>
+          )}
         </Block>
 
-        {type === "password" && (
-          <TouchableOpacity onPress={() => setHidePassword((prev) => !prev)}>
-            <Icon size={18} icon={hidePassword ? "Show" : "Hide"} />
-          </TouchableOpacity>
-        )}
         {rightComponent}
         <InputRightComponent type={type} />
       </Block>
@@ -94,6 +96,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     marginLeft: 10,
     fontSize: FontSize.smallText,
+    flex: 1,
   },
   errorText: {
     color: Colors.light.error,

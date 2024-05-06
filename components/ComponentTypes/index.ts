@@ -1,3 +1,4 @@
+import { IconName } from "@components/Icon";
 import Colors from "@constants/Colors";
 import { TextInputProps, TextStyle, ViewStyle } from "react-native";
 
@@ -40,7 +41,7 @@ export interface ITextInput extends TextInputProps {
 }
 
 export interface IconProps {
-  name: string;
+  name: IconName;
   size?: number;
   color?: keyof typeof Colors | string;
   action?: () => void;

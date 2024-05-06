@@ -18,21 +18,22 @@ export interface IButton extends TouchableOpacityProps {
 }
 
 export interface IconProps {
-  type: any;
   name: IconName;
   size?: number;
   color?: keyof typeof Colors | string;
   containerStyle?: ViewStyle | ViewStyle[];
 }
 export const baseStyle: ViewStyle = {
-  backgroundColor: "blue",
   padding: 10,
 };
 
 export const shadowStyle: ViewStyle = {
-  shadowOffset: { width: 5, height: 5 },
-  shadowOpacity: 0.5,
-  shadowRadius: 10,
-  elevation: 20,
+  shadowOffset: {
+    width: 8,
+    height: 6,
+  },
+  shadowOpacity: 0.2,
+  shadowRadius: 3.84,
+  elevation: 3,
   shadowColor: "#000",
 };

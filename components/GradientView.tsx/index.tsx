@@ -7,6 +7,7 @@ type GradientViewProps = {
   children: ReactNode;
   style?: ViewStyle;
   radius?: number;
+  shadow?: boolean;
 };
 
 const gradientConfigurations: Record<
@@ -29,12 +30,18 @@ const gradientConfigurations: Record<
   },
 };
 
-const GradientView = ({ name, children, style, radius }: GradientViewProps) => {
+const GradientView = ({
+  name,
+  children,
+  style,
+  radius,
+  shadow,
+}: GradientViewProps) => {
   const gradientConfig = gradientConfigurations[name];
   if (!gradientConfig) return null;
 
   return (
-    <View style={[styles.container, style]}>
+    <View style={[styles.container, style, shadow && styles.shadow]}>
       <LinearGradient
         colors={gradientConfig.colors}
         start={gradientConfig.start}
@@ -54,6 +61,15 @@ const styles = StyleSheet.create({
   gradient: {
     padding: 15,
     alignItems: "center",
+  },
+  shadow: {
+    shadowOffset: {
+      width: 8,
+      height: 6,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 3.84,
+    elevation: 3,
   },
 });
 
