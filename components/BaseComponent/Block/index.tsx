@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { SafeAreaView, StyleSheet } from "react-native";
 import {
   handlePadding,
   handleMargin,
@@ -107,7 +107,7 @@ const Block: React.FC<IBlock> = ({
     paddingVertical && { paddingVertical: getSize.m(paddingVertical) },
     marginHorizontal && { marginHorizontal: getSize.m(marginHorizontal) },
     marginVertical && { marginVertical: getSize.m(marginVertical) },
-    { borderRadius: getSize.s(40) },
+    { borderRadius: radius ?? getSize.s(40) },
     borderWidth && { borderWidth: borderWidth },
     square && { ...handleSquare(getSize.s(square)) },
     round && { ...handleRound(getSize.s(round)) },
@@ -128,9 +128,9 @@ const Block: React.FC<IBlock> = ({
   ];
 
   return (
-    <View style={blockStyles} {...props}>
+    <SafeAreaView style={blockStyles} {...props}>
       {children}
-    </View>
+    </SafeAreaView>
   );
 };
 

@@ -16,6 +16,7 @@ const Button: React.FC<IButton> = (props) => {
     color,
     titleStyle,
     backgroundColor,
+    onPress,
     onPressColor,
     children,
     icon,
@@ -67,7 +68,7 @@ const Button: React.FC<IButton> = (props) => {
 
   if (shadow) {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onPress} {...pressableProps}>
         <GradientView
           name="BlueLinear"
           radius={99}
@@ -100,7 +101,7 @@ export default Button;
 
 const renderIcon = (iconPos: IconProps) => {
   if (iconPos) {
-    const iconColor = iconPos.color || "primary";
+    const iconColor = iconPos.color || Colors.light.white;
 
     return (
       <Block style={StyleSheet.flatten([iconPos.containerStyle])}>

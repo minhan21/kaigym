@@ -6,7 +6,11 @@ const Stack = createNativeStackNavigator();
 const OnboardingNavigator = () => {
   return (
     <Stack.Navigator initialRouteName="Onboarding">
-      <Stack.Screen name="Onboarding" component={OnboardingScreen} />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="Onboarding"
+        component={OnboardingScreen}
+      />
     </Stack.Navigator>
   );
 };
