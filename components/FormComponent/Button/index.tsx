@@ -76,6 +76,13 @@ const Button: React.FC<IButton> = (props) => {
           style={combinedStyle}
         >
           {children ? children : _renderTitle()}
+          {pressableProps.disabled && (
+            <Block
+              opacity={0.4}
+              style={[StyleSheet.absoluteFillObject]}
+              backgroundColor="white"
+            />
+          )}
         </GradientView>
       </TouchableOpacity>
     );
