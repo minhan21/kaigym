@@ -12,10 +12,18 @@ import Button from "@components/FormComponent/Button";
 import { NavigationTypes } from "@navigation/navigationTypes";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { addUser } from "../authenticateCollection";
+import { useState } from "react";
 
 type RootStackParamList = NavigationTypes;
-
+type RegisterFormParams = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+};
 const SignUpScreen = () => {
+  const [loading, setLoading] = useState(false);
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const navigateToHomeScreen = () => {
     navigation.navigate("Main");
@@ -23,11 +31,18 @@ const SignUpScreen = () => {
   const navigateToLoginScreen = () => {
     navigation.navigate("Login");
   };
+  const handleRegisterUserAccount = async (values: RegisterFormParams) => {
+    setLoading(true); // Start loading
+    const result = await addUser(values);
+    if (result.success) {
+      navigateToLoginScreen();
+    }
+    setLoading(false); // Stop loading
+  };
   const INITIAL_VALUES = {};
   const {
     control,
     handleSubmit,
-    setValue,
     formState: { isValid },
   } = useForm({
     resolver: yupResolver(signUpValidate),
@@ -46,7 +61,7 @@ const SignUpScreen = () => {
           type="input"
           placeholder="First Name"
           control={control}
-          name="fistname"
+          name="firstName"
         />
         <FormInput
           containerStyles={{ marginTop: 15 }}
@@ -54,7 +69,7 @@ const SignUpScreen = () => {
           type="input"
           placeholder="Last Name"
           control={control}
-          name="lastname"
+          name="lastName"
         />
         <FormInput
           containerStyles={{ marginTop: 15 }}
@@ -70,10 +85,13 @@ const SignUpScreen = () => {
           type="password"
           placeholder="Password"
           control={control}
-          name="pasword"
+          name="password"
         />
       </Block>
       <Button
+        disabled={!isValid}
+        isLoading={loading}
+        onPress={handleSubmit(handleRegisterUserAccount)}
         titleStyle={{ fontSize: FontSize.largeText }}
         shadow
         title="Register"

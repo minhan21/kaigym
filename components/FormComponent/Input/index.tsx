@@ -71,11 +71,9 @@ const FormInput: React.FC<FormInputProps> = ({
         <InputRightComponent type={type} />
       </Block>
       {errors[name]?.message && (
-        <Block marginTop={4} row alignCenter>
+        <Block marginTop={8} row alignCenter>
           <Icon size={12} color="red" icon="Danger2" />
-          <Text style={styles.errorText}>
-            {errors[name]?.message}Error Field is required
-          </Text>
+          <Text style={styles.errorText}>{errors[name]?.message}</Text>
         </Block>
       )}
     </Block>

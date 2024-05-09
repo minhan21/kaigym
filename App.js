@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import MainNavigator from "./navigation/RootNavigator";
 import { useFonts } from "expo-font";
+import Toast from "react-native-toast-message";
+
 export default function App() {
   const [fontsLoaded] = useFonts({
     regular: require("./assets/fonts/Poppins-Regular.ttf"),
@@ -24,6 +26,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <MainNavigator />
+      <Toast />
     </NavigationContainer>
   );
 }
