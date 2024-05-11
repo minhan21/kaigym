@@ -1,3 +1,3 @@
 export const IMAGES = {
-  logo: require("./MSports.png"),
+  logo: require("./icon.png"),
 };

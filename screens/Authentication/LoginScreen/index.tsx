@@ -12,10 +12,22 @@ import Button from "@components/FormComponent/Button";
 import { NavigationTypes } from "@navigation/navigationTypes";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { useState } from "react";
+import { loginUser } from "../authenticateCollection";
 
 type RootStackParamList = NavigationTypes;
+type LoginFormParams = {
+  email: string;
+  password: string;
+};
+
+const INITIAL_VALUES = {
+  email: "",
+  password: "",
+};
 
 const LoginScreen = () => {
+  const [loading, setLoading] = useState(false);
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const navigateToSignUpScreen = () => {
     navigation.navigate("SignUp");
@@ -26,11 +38,18 @@ const LoginScreen = () => {
   const navigateToLoginScreen = () => {
     navigation.navigate("Login");
   };
-  const INITIAL_VALUES = {};
+  const handleAccountLogin = async (values: LoginFormParams) => {
+    setLoading(true); // Start loading
+    const result = await loginUser(values);
+    if (result.success) {
+      navigateToHomeScreen();
+    }
+    setLoading(false); // Stop loading
+  };
+
   const {
     control,
     handleSubmit,
-    setValue,
     formState: { isValid },
   } = useForm({
     resolver: yupResolver(loginValidate),
@@ -58,11 +77,13 @@ const LoginScreen = () => {
           type="password"
           placeholder="Password"
           control={control}
-          name="pasword"
+          name="password"
         />
       </Block>
       <Button
-        onPress={navigateToHomeScreen}
+        disabled={!isValid}
+        isLoading={loading}
+        onPress={handleSubmit(handleAccountLogin)}
         position="left"
         icon={{ name: "Login", size: 18, color: Colors.light.white }}
         titleStyle={{ fontSize: FontSize.largeText }}

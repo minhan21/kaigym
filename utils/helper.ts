@@ -5,6 +5,15 @@ type ToastType = {
   title: string;
   content: string;
 };
+
+function showErrorToast(title, message) {
+  Toast.show({
+    type: "error",
+    text1: title,
+    text2: message,
+  });
+}
+
 const Helper = {
   calculateLineHeight(
     fontSize: number,
@@ -31,6 +40,33 @@ const Helper = {
       text1: title,
       text2: content,
     });
+  },
+
+  handleFirestoreError(error) {
+    console.log(error.code, "error.code"); // Log the error code for debugging
+
+    switch (error.code) {
+      case "permission-denied":
+        return showErrorToast(
+          "Lỗi",
+          "Bạn không có quyền truy cập dữ liệu này."
+        );
+
+      case "auth/email-already-in-use":
+        return showErrorToast("Lỗi", "Email đã được sử dụng");
+      case "unavailable":
+        return showErrorToast(
+          "Lỗi",
+          "Máy chủ hiện đang có vấn đề, vui lòng thử lại sau."
+        );
+      case "auth/invalid-credential":
+        return showErrorToast("Lỗi", "Sai tài khoản hoặc mật khẩu");
+      default:
+        return showErrorToast(
+          "Lỗi",
+          "Đã xảy ra lỗi không mong muốn. Vui lòng thử lại."
+        );
+    }
   },
 };
 export default Helper;

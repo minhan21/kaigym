@@ -12,8 +12,9 @@ import Button from "@components/FormComponent/Button";
 import { NavigationTypes } from "@navigation/navigationTypes";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { addUser } from "../authenticateCollection";
+import { registerUser } from "../authenticateCollection";
 import { useState } from "react";
+import CustomDropdown from "@components/FormComponent/Dropdown";
 
 type RootStackParamList = NavigationTypes;
 type RegisterFormParams = {
@@ -21,7 +22,28 @@ type RegisterFormParams = {
   lastName: string;
   email: string;
   password: string;
+  role: "owner" | "player";
 };
+
+const ROLES_OPTION = [
+  {
+    label: "Sports Station Owner",
+    value: "owner",
+  },
+  {
+    label: "Player",
+    value: "player",
+  },
+];
+
+const INITIAL_VALUES = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  role: "owner",
+};
+
 const SignUpScreen = () => {
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -33,13 +55,13 @@ const SignUpScreen = () => {
   };
   const handleRegisterUserAccount = async (values: RegisterFormParams) => {
     setLoading(true); // Start loading
-    const result = await addUser(values);
+    const result = await registerUser(values);
     if (result.success) {
       navigateToLoginScreen();
     }
     setLoading(false); // Stop loading
   };
-  const INITIAL_VALUES = {};
+
   const {
     control,
     handleSubmit,
@@ -86,6 +108,14 @@ const SignUpScreen = () => {
           placeholder="Password"
           control={control}
           name="password"
+        />
+        <CustomDropdown
+          containerStyles={{ marginTop: 15 }}
+          label="Role"
+          options={ROLES_OPTION}
+          name="role"
+          icon={{ name: "User2Light", size: 18 }}
+          control={control}
         />
       </Block>
       <Button

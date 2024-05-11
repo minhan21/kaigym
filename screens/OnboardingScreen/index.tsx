@@ -26,7 +26,9 @@ const OnboardingScreen = () => {
           style={{ width: 177, resizeMode: "contain" }}
           source={IMAGES.logo}
         />
-        <Typography style={styles.title}>We play sports</Typography>
+        <Typography style={styles.title}>
+          Simple - Adaptable - Flexible
+        </Typography>
       </Block>
       <TouchableOpacity
         onPress={() => navigateToSignUpScreen()}
