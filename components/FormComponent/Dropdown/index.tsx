@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
+  ViewStyle,
 } from "react-native";
 import { Control, Controller } from "react-hook-form";
 import Block from "@components/BaseComponent/Block";
@@ -13,6 +14,7 @@ import Typography from "@components/BaseComponent/Text";
 import FontSize from "@constants/FontSize";
 import Colors from "@constants/Colors";
 import Fonts from "@constants/Fonts";
+import { IconProps } from "../Button/types";
 
 interface Option {
   label: string;
@@ -24,6 +26,8 @@ interface CustomDropdownProps {
   name: string;
   options: Option[];
   label: string;
+  containerStyles?: ViewStyle | ViewStyle[];
+  icon: IconProps;
 }
 
 const CustomDropdown: React.FC<CustomDropdownProps> = ({
@@ -31,6 +35,8 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
   name,
   options,
   label,
+  containerStyles,
+  icon,
 }) => {
   const [visible, setVisible] = useState<boolean>(false);
 
@@ -39,7 +45,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
       control={control}
       name={name}
       render={({ field: { onChange, onBlur, value } }) => (
-        <View style={styles.container}>
+        <Block paddingVertical={15} style={[styles.container, containerStyles]}>
           <TouchableOpacity
             onPress={() => {
               setVisible(true);
@@ -48,7 +54,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
           >
             <Block row alignCenter space="between">
               <Block row alignCenter>
-                <Icon size={18} icon="User2Light" />
+                <Icon size={icon.size} icon={icon.name} />
                 <Typography
                   style={{ fontSize: FontSize.smallText }}
                   marginLeft={10}
@@ -90,17 +96,14 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
               </View>
             </TouchableOpacity>
           </Modal>
-        </View>
+        </Block>
       )}
     />
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    minWidth: 200,
-    margin: 10,
-  },
+  container: {},
 
   modalOverlay: {
     flex: 1,
