@@ -12,16 +12,10 @@ import { logoutUser } from "../../Authentication/authenticateCollection";
 const SettingScreen = () => {
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation<StackNavigationProp<NavigationTypes>>();
-
-  const navigateToLoginScreen = () => {
-    navigation.navigate("Login");
-  };
   const handleLogout = async () => {
     setLoading(true); // Start loading
     const result = await logoutUser();
-    if (result.success) {
-      navigateToLoginScreen();
-    }
+
     setLoading(false); // Stop loading
   };
   return (

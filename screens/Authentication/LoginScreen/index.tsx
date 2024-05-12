@@ -14,6 +14,8 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useState } from "react";
 import { loginUser } from "../authenticateCollection";
+import { useDispatch } from "react-redux";
+import { setUser } from "../userSlice";
 
 type RootStackParamList = NavigationTypes;
 type LoginFormParams = {
@@ -28,6 +30,7 @@ const INITIAL_VALUES = {
 
 const LoginScreen = () => {
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const navigateToSignUpScreen = () => {
     navigation.navigate("SignUp");
@@ -41,7 +44,11 @@ const LoginScreen = () => {
   const handleAccountLogin = async (values: LoginFormParams) => {
     setLoading(true); // Start loading
     const result = await loginUser(values);
+    console.log(result, "result");
     if (result.success) {
+      dispatch(
+        setUser({ userData: result.user, userDetails: result.userDetails })
+      );
       navigateToHomeScreen();
     }
     setLoading(false); // Stop loading
