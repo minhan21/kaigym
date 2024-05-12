@@ -1,5 +1,5 @@
 import Colors from "@constants/Colors";
-import Svg, { ClipPath, Defs, G, Path } from "react-native-svg";
+import Svg, { Circle, ClipPath, Defs, G, Path } from "react-native-svg";
 
 // Define a type for the icon names
 export type IconName =
@@ -17,17 +17,27 @@ export type IconName =
   | "User2Light"
   | "Dropdown"
   | "Login"
-  | "Next"; // Add more icon names as needed
+  | "Next"
+  | "LogOut"
+  | "Home"
+  | "Settings"; // Add more icon names as needed
 
 // Define the props type for the Icon component
 type IconProps = {
-  icon: IconName; // Specify the icon prop to accept only IconName values
+  icon: IconName | string; // Specify the icon prop to accept only IconName values
   size?: number;
   color?: string;
+  focused?: boolean;
   // Add other props as needed
 };
 
-const Icon = ({ icon, size = 24, color = "#130F26", ...rest }: IconProps) => {
+const Icon = ({
+  icon,
+  size = 24,
+  color = "#130F26",
+  focused,
+  ...rest
+}: IconProps) => {
   // Map icon names to their corresponding SVG paths
   const icons: Record<IconName, JSX.Element> = {
     activity: (
@@ -199,6 +209,41 @@ const Icon = ({ icon, size = 24, color = "#130F26", ...rest }: IconProps) => {
         strokeWidth={1.5}
         d="M7.083 4.167 12.917 10l-5.834 5.833"
       />
+    ),
+    LogOut: (
+      <G
+        stroke={Colors.light.gray1}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+      >
+        <Path d="M15.016 7.39v-.934a3.685 3.685 0 0 0-3.685-3.685H6.456a3.685 3.685 0 0 0-3.684 3.685v11.13a3.685 3.685 0 0 0 3.684 3.686h4.885a3.675 3.675 0 0 0 3.675-3.674v-.944M21.81 12.021H9.768M18.881 9.106l2.928 2.915-2.928 2.916" />
+      </G>
+    ),
+    Home: (
+      <Path
+        fill={focused ? Colors.light.primaryColor : Colors.light.white}
+        stroke={focused ? Colors.light.primaryColor : Colors.light.gray1}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+        d="M9.157 20.771v-3.066c0-.78.636-1.414 1.424-1.42h2.886c.792 0 1.433.636 1.433 1.42v3.076c0 .662.534 1.204 1.203 1.219h1.924c1.918 0 3.473-1.54 3.473-3.438v0-8.724a2.44 2.44 0 0 0-.962-1.905l-6.58-5.248a3.18 3.18 0 0 0-3.945 0L3.462 7.943A2.42 2.42 0 0 0 2.5 9.847v8.715C2.5 20.46 4.055 22 5.973 22h1.924c.685 0 1.241-.55 1.241-1.229v0"
+      />
+    ),
+    Settings: (
+      <G
+        fill={focused ? Colors.light.primaryColor : Colors.light.white}
+        stroke={focused ? Colors.light.primaryColor : Colors.light.gray1}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+      >
+        <Path
+          d="m20.807 7.624-.623-1.08a1.913 1.913 0 0 0-2.608-.705v0a1.904 1.904 0 0 1-2.61-.678 1.832 1.832 0 0 1-.255-.915v0a1.913 1.913 0 0 0-1.914-1.968h-1.254A1.904 1.904 0 0 0 9.64 4.191v0a1.913 1.913 0 0 1-1.913 1.886 1.83 1.83 0 0 1-.916-.257v0a1.913 1.913 0 0 0-2.608.705l-.669 1.099a1.913 1.913 0 0 0 .696 2.608v0a1.913 1.913 0 0 1 0 3.314v0a1.904 1.904 0 0 0-.696 2.6v0l.632 1.089a1.913 1.913 0 0 0 2.609.741v0a1.895 1.895 0 0 1 2.6.696c.164.277.252.593.255.915v0c0 1.056.857 1.913 1.913 1.913h1.255c1.053 0 1.908-.85 1.912-1.904v0a1.904 1.904 0 0 1 1.914-1.913c.321.009.636.097.915.256v0a1.913 1.913 0 0 0 2.609-.695v0l.659-1.099a1.904 1.904 0 0 0-.696-2.608v0a1.904 1.904 0 0 1-.696-2.609c.166-.29.406-.53.696-.696v0a1.913 1.913 0 0 0 .696-2.6v0-.008Z"
+          clipRule="evenodd"
+        />
+        <Circle cx={12.175} cy={11.889} r={2.636} />
+      </G>
     ),
     // Add other icon paths here
   };

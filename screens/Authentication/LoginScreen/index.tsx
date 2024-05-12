@@ -22,8 +22,8 @@ type LoginFormParams = {
 };
 
 const INITIAL_VALUES = {
-  email: "",
-  password: "",
+  email: "Minhan2111@gmail.com",
+  password: "Minhan456@",
 };
 
 const LoginScreen = () => {
