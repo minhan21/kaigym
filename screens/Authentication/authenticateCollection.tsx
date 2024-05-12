@@ -7,7 +7,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
 
 export async function registerUser(params) {
   const auth = getAuth();
@@ -45,21 +45,32 @@ export async function registerUser(params) {
 export async function loginUser(params) {
   console.log(params, "params");
   const auth = getAuth();
+  const db = getFirestore();
+
   try {
     const userCredential = await signInWithEmailAndPassword(
       auth,
       params.email,
       params.password
     );
+
+    // Fetch additional user details from Firestore
+    const userDoc = await getDoc(doc(db, "User", userCredential.user.uid));
+    const userDetails = userDoc.exists() ? userDoc.data() : null;
+
     Helper.showToastMessage({
       type: "success",
       title: "Thành công",
       content: "Đăng nhập thành công",
     });
-    return { success: true, user: userCredential.user };
+
+    return {
+      success: true,
+      user: userCredential.user,
+      userDetails: userDetails,
+    };
   } catch (error) {
     Helper.handleFirestoreError(error);
-
     return { success: false, error: error };
   }
 }

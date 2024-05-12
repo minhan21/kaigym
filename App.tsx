@@ -1,9 +1,11 @@
 import React from "react";
-import { useEffect } from "react";
+import { Provider } from "react-redux";
 import { NavigationContainer } from "@react-navigation/native";
 import MainNavigator from "./navigation/RootNavigator";
 import { useFonts } from "expo-font";
 import Toast from "react-native-toast-message";
+import { store } from "utils/store";
+import AuthHandler from "@screens/Authentication/AuthHandler";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -15,18 +17,17 @@ export default function App() {
     lightItalic: require("./assets/fonts/Poppins-LightItalic.ttf"),
   });
 
-  useEffect(() => {
-    // You can perform any additional setup or loading logic here
-  }, []);
-
   if (!fontsLoaded) {
     return null;
   }
 
   return (
-    <NavigationContainer>
-      <MainNavigator />
-      <Toast />
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <AuthHandler />
+        <MainNavigator />
+        <Toast />
+      </NavigationContainer>
+    </Provider>
   );
 }

@@ -1,32 +1,52 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AuthNavigator from "./AuthNavigator";
 import OnboardingNavigator from "./OnBoardingNavigator";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import MainNavigator from "./MainNavigator";
+import { OwnerNavigator, PlayerNavigator } from "./MainNavigator";
+
 const Stack = createNativeStackNavigator();
 
-const Tab = createBottomTabNavigator();
-
 const RootNavigator = () => {
+  const user = useSelector((state) => state.user.userDetails);
+  const [isLoading, setIsLoading] = useState(true);
+  console.log(isLoading, "isLoading");
+  console.log(user, "user");
+  useEffect(() => {
+    // Check if user data has been fetched
+    if (user !== null) {
+      // Assuming initialState is undefined for user details
+      setIsLoading(false);
+    }
+  }, [user]);
+
+  const ChooseNavigator = () => {
+    if (!user) {
+      return <OnboardingNavigator isLoading={isLoading} />;
+    } else if (user.role === "owner") {
+      return <OwnerNavigator />;
+    } else {
+      return <PlayerNavigator />;
+    }
+  };
+
   return (
-    <Stack.Navigator initialRouteName="OnboardingNavigator">
+    <Stack.Navigator initialRouteName="Main">
+      <Stack.Screen
+        name="Main"
+        component={ChooseNavigator}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name="OnboardingNavigator"
-        options={{ headerShown: false }}
         component={OnboardingNavigator}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
-        options={{ headerShown: false }}
         name="Auth"
         component={AuthNavigator}
-      />
-      <Stack.Screen
         options={{ headerShown: false }}
-        name="Main"
-        component={MainNavigator}
       />
-      {/* Add other screens as needed */}
     </Stack.Navigator>
   );
 };
