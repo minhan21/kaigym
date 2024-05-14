@@ -4,6 +4,8 @@ import Icon from "@components/Icon";
 import Colors from "@constants/Colors";
 import PlayerHomeScreen from "@screens/MainScreen/PlayerScreens/PlayerHomeScreen";
 import OwnerHomeScreen from "@screens/MainScreen/OwnerScreens/OwnerHomeScreen";
+import { createStackNavigator } from "@react-navigation/stack";
+import RegisterStage from "@screens/MainScreen/OwnerScreens/RegisterStage";
 
 const createTabNavigator = (homeScreen) => {
   const TabNavigator = createBottomTabNavigator();
@@ -18,13 +20,37 @@ const createTabNavigator = (homeScreen) => {
         ),
       })}
     >
-      <TabNavigator.Screen name="Home" component={homeScreen} />
+      <TabNavigator.Screen
+        options={{ headerShown: false }}
+        name="Home"
+        component={homeScreen}
+      />
       <TabNavigator.Screen name="Settings" component={SettingScreen} />
     </TabNavigator.Navigator>
   );
 };
 
+// Create a stack navigator for the owner role
+const OwnerStack = createStackNavigator();
+
+const OwnerStackNavigator = () => (
+  <OwnerStack.Navigator>
+    <OwnerStack.Screen
+      options={{ headerShown: false }}
+      name="OwnerHome"
+      component={OwnerHomeScreen}
+    />
+    <OwnerStack.Screen
+      options={{
+        headerBackTitleVisible: false, // Hide back button text
+        headerTitle: "Đặt sân Tennis",
+      }}
+      name="RegisterStage"
+      component={RegisterStage}
+    />
+  </OwnerStack.Navigator>
+);
 const PlayerNavigator = createTabNavigator(PlayerHomeScreen);
-const OwnerNavigator = createTabNavigator(OwnerHomeScreen);
+const OwnerNavigator = createTabNavigator(OwnerStackNavigator);
 
 export { PlayerNavigator, OwnerNavigator };

@@ -7,6 +7,7 @@ export type NavigationTypes = {
   Auth: {};
   Main: {};
   Login: {};
+  RegisterStage: {};
 };
 
 export const SignUpScreen = "SignUpScreen";

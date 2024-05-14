@@ -11,17 +11,20 @@ const OnboardingNavigator: React.FC<OnboardingNavigatorProps> = ({
 }) => {
   console.log(isLoading, "isLoading OnboardingNavigator");
   return (
-    <Stack.Navigator initialRouteName={isLoading ? "Loading" : "Onboarding"}>
-      <Stack.Screen
-        options={{ headerShown: false }}
-        name="Loading"
-        component={LoadingScreen}
-      />
-      <Stack.Screen
-        options={{ headerShown: false }}
-        name="Onboarding"
-        component={OnboardingScreen}
-      />
+    <Stack.Navigator>
+      {isLoading ? (
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Loading"
+          component={LoadingScreen}
+        />
+      ) : (
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Onboarding"
+          component={OnboardingScreen}
+        />
+      )}
     </Stack.Navigator>
   );
 };

@@ -8,22 +8,13 @@ import { OwnerNavigator, PlayerNavigator } from "./MainNavigator";
 const Stack = createNativeStackNavigator();
 
 const RootNavigator = () => {
-  const user = useSelector((state) => state.user.userDetails);
-  const [isLoading, setIsLoading] = useState(true);
-  console.log(isLoading, "isLoading");
-  console.log(user, "user");
-  useEffect(() => {
-    // Check if user data has been fetched
-    if (user !== null) {
-      // Assuming initialState is undefined for user details
-      setIsLoading(false);
-    }
-  }, [user]);
+  const { userDetails, isLoading } = useSelector((state) => state.user);
 
   const ChooseNavigator = () => {
-    if (!user) {
+    console.log(userDetails, "userDetails");
+    if (!userDetails) {
       return <OnboardingNavigator isLoading={isLoading} />;
-    } else if (user.role === "owner") {
+    } else if (userDetails.role === "owner") {
       return <OwnerNavigator />;
     } else {
       return <PlayerNavigator />;
