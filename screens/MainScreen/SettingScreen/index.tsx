@@ -14,7 +14,7 @@ const SettingScreen = () => {
   const navigation = useNavigation<StackNavigationProp<NavigationTypes>>();
   const handleLogout = async () => {
     setLoading(true); // Start loading
-    const result = await logoutUser();
+    await logoutUser();
 
     setLoading(false); // Stop loading
   };

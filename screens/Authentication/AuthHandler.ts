@@ -2,7 +2,11 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
-import { logoutUser, setUser } from "@screens/Authentication/userSlice";
+import {
+  logoutUser,
+  setLoadingState,
+  setUser,
+} from "@screens/Authentication/userSlice";
 import { auth } from "firebaseConfig";
 
 const AuthHandler = () => {
@@ -10,6 +14,7 @@ const AuthHandler = () => {
   const db = getFirestore();
 
   useEffect(() => {
+    dispatch(setLoadingState(true));
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         const userDocRef = doc(db, "User", user.uid);
@@ -32,7 +37,10 @@ const AuthHandler = () => {
                 userDetails: userDetails,
               })
             );
+            dispatch(setLoadingState(false));
           } else {
+            dispatch(setLoadingState(false));
+
             console.log("No additional user details found in Firestore.");
             dispatch(
               setUser({
@@ -49,9 +57,11 @@ const AuthHandler = () => {
             );
           }
         } catch (error) {
+          dispatch(setLoadingState(false));
           console.error("Error fetching user details:", error);
         }
       } else {
+        dispatch(setLoadingState(false));
         dispatch(logoutUser());
       }
     });
