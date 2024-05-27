@@ -13,6 +13,7 @@ module.exports = function (api) {
             "@screens": "./screens",
             "@shared": "./shared",
             "@utils": "./shared/utils",
+            "@fireStoreCollection": "./fireStoreCollection",
           },
         },
       ],

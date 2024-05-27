@@ -33,36 +33,37 @@ const TimePicker: React.FC<FormTimePickerProps> = ({
       setPickerVisible(false);
     };
     return (
-      <PaperProvider>
-        <Block paddingVertical={15}>
-          <TouchableOpacity
-            style={styles.row}
+      // <PaperProvider>
+      <Block paddingVertical={15}>
+        <TouchableOpacity
+          style={styles.row}
+          onPress={() => setPickerVisible(true)}
+        >
+          <Icon icon="Calendar" size={18} />
+          <TextInput
             onPress={() => setPickerVisible(true)}
-          >
-            <Icon icon="Calendar" size={18} />
-            <TextInput
-              onPress={() => setPickerVisible(true)}
-              editable={false}
-              value={value}
-              style={styles.inputContainer}
-              onBlur={onBlur}
-              placeholder="Ngày đặt sân"
-            />
-          </TouchableOpacity>
-
-          <TimePickerModal
-            visible={isPickerVisible}
-            onDismiss={onDismiss}
-            onConfirm={onConfirm}
-            hours={new Date().getHours()}
-            minutes={new Date().getMinutes()}
-            label="Select time"
-            cancelLabel="Cancel"
-            confirmLabel="Ok"
-            {...props}
+            editable={false}
+            value={value}
+            style={styles.inputContainer}
+            onBlur={onBlur}
+            placeholder={placeholder}
           />
-        </Block>
-      </PaperProvider>
+        </TouchableOpacity>
+
+        <TimePickerModal
+          visible={isPickerVisible}
+          onDismiss={onDismiss}
+          onConfirm={onConfirm}
+          label="Select time"
+          cancelLabel="Cancel"
+          use24HourClock={true}
+          confirmLabel="Ok"
+          // hours={24}
+          // minutes={14}
+          {...props}
+        />
+      </Block>
+      // </PaperProvider>
     );
   };
   return (

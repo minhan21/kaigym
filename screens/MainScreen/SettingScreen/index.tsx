@@ -7,7 +7,7 @@ import Colors from "@constants/Colors";
 import { NavigationTypes } from "@navigation/navigationTypes";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { logoutUser } from "../../Authentication/authenticateCollection";
+import { logoutUser } from "fireStoreCollection/Authentication/authenticateCollection";
 
 const SettingScreen = () => {
   const [loading, setLoading] = useState(false);

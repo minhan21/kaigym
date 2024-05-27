@@ -7,6 +7,7 @@ const largeText = 16;
 const mediumText = 14;
 const smallText = 12;
 const caption = 10;
+const too_caption = 8;
 export default {
   h1,
   h2,
@@ -17,4 +18,5 @@ export default {
   mediumText,
   smallText,
   caption,
+  too_caption,
 };

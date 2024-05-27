@@ -12,9 +12,9 @@ import Button from "@components/FormComponent/Button";
 import { NavigationTypes } from "@navigation/navigationTypes";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { registerUser } from "../authenticateCollection";
 import { useState } from "react";
 import CustomDropdown from "@components/FormComponent/Dropdown";
+import { registerUser } from "fireStoreCollection/Authentication/authenticateCollection";
 
 type RootStackParamList = NavigationTypes;
 type RegisterFormParams = {
