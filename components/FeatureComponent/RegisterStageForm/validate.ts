@@ -10,7 +10,15 @@ export const reservationValidate = object().shape({
     .required("Ngày là bắt buộc")
     .typeError("Định dạng ngày không hợp lệ"),
 
-  time: string()
+  start: string()
+    .trim()
+    .matches(
+      /^([01]\d|2[0-3]):([0-5]\d)$/,
+      "Định dạng thời gian không hợp lệ, phải là HH:MM"
+    )
+    .required("Thời gian là bắt buộc"),
+
+  end: string()
     .trim()
     .matches(
       /^([01]\d|2[0-3]):([0-5]\d)$/,

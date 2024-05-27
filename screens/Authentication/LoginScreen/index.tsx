@@ -13,9 +13,9 @@ import { NavigationTypes } from "@navigation/navigationTypes";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useState } from "react";
-import { loginUser } from "../authenticateCollection";
 import { useDispatch } from "react-redux";
 import { setUser } from "../userSlice";
+import { loginUser } from "fireStoreCollection/Authentication/authenticateCollection";
 
 type RootStackParamList = NavigationTypes;
 type LoginFormParams = {
