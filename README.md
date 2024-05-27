@@ -16,7 +16,11 @@ Manage bookings and view booking history
 Demo
 
 
-https://github.com/minhan21/kaigym/assets/50237901/cc5408a8-8a68-4924-9938-160ce9d4993e
+
+https://github.com/minhan21/kaigym/assets/50237901/767f8c3f-b26f-491d-8fce-2e00917513e5
+
+
+
 
 
 
