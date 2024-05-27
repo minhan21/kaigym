@@ -23,7 +23,6 @@ const DatePicker: React.FC<FormDatePickerProps> = ({
 
   const renderDatePicker = ({ onChange, onBlur, value }: any, errors: any) => {
     const handleDayPress = (day) => {
-      console.log(day, "day");
       onChange(day.dateString);
       setModalVisible(false);
     };

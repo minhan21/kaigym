@@ -1,5 +1,5 @@
 import Block from "@components/BaseComponent/Block";
-import { Image, StyleSheet, TouchableOpacity } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 import Typography from "@components/BaseComponent/Text";
 import { IMAGES } from "assets/images";
 import Colors from "@constants/Colors";
@@ -26,6 +26,7 @@ const OnboardingScreen = () => {
           style={{ width: 177, resizeMode: "contain" }}
           source={IMAGES.logo}
         />
+
         <Typography style={styles.title}>
           Simple - Adaptable - Flexible
         </Typography>

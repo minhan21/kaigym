@@ -22,7 +22,7 @@ const AuthHandler = () => {
           const userDoc = await getDoc(userDocRef);
           if (userDoc.exists()) {
             const userDetails = userDoc.data();
-            console.log(userDetails, "userDetails");
+
             // Extract and dispatch only the serializable user details
             dispatch(
               setUser({
@@ -40,8 +40,6 @@ const AuthHandler = () => {
             dispatch(setLoadingState(false));
           } else {
             dispatch(setLoadingState(false));
-
-            console.log("No additional user details found in Firestore.");
             dispatch(
               setUser({
                 userData: {

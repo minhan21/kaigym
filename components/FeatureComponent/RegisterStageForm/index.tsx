@@ -14,14 +14,15 @@ import {
   getStagesByUserId,
 } from "fireStoreCollection/Feature/stageCollection";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import Helper from "utils/helper";
+import { RootState } from "utils/stateTypes";
 import { reservationValidate } from "./validate";
 
-type RegisterStageFormParams = {
+export type RegisterStageFormParams = {
   customerEmail: string;
-  date: Date;
+  date: string;
   start: string;
   end: string;
   price: number;
@@ -37,20 +38,23 @@ const statusColors = {
   default: "#D9FFD9",
 };
 
-const RegisterStageForm = () => {
-  const [loading, setLoading] = useState(false);
-  const { userData } = useSelector((state) => state.user);
+const INITIAL_VALUES: Partial<RegisterStageFormParams> = {
+  customerEmail: "",
+  date: "",
+  start: "",
+  end: "",
+  price: 0,
+  note: "",
+  status: "holding",
+  title: "",
+  color: "",
+};
 
+const RegisterStageForm: React.FC = () => {
+  const [loading, setLoading] = useState(false);
+  const { userData } = useSelector((state: RootState) => state.user);
   const navigation = useNavigation<StackNavigationProp<NavigationTypes>>();
-  const INITIAL_VALUES = {
-    customerEmail: "", // Một địa chỉ email hợp lệ
-    date: "", // Một ngày hợp lệ
-    start: Helper.getCurrentTime(), // Một thời gian hợp lệ theo định dạng HH:MM (24 giờ)
-    end: Helper.getCurrentTime(), // Một thời gian hợp lệ theo định dạng HH:MM (24 giờ)
-    price: 0, // Một số dương hợp lệ
-    note: "", // Ghi chú tùy chọn, có thể để trống
-    status: "holding", // Một trạng thái hợp lệ, có thể là "holding", "confirmed" hoặc "cancelled"
-  };
+
   const STAGE_STATUS = [
     {
       label: "Đang giữ chỗ",
@@ -65,18 +69,20 @@ const RegisterStageForm = () => {
       value: "reserved",
     },
   ];
+
   const {
     control,
     handleSubmit,
-
-    formState: { isValid, errors },
-  } = useForm({
+    formState: { isValid },
+  } = useForm<RegisterStageFormParams>({
     resolver: yupResolver(reservationValidate),
     mode: "onChange",
     defaultValues: INITIAL_VALUES,
   });
 
-  const handleRegisterStage = async (values: RegisterStageFormParams) => {
+  const handleRegisterStage: SubmitHandler<RegisterStageFormParams> = async (
+    values: RegisterStageFormParams
+  ) => {
     setLoading(true); // Start loading
     let params = values;
     params.start = Helper.combineDateTimeToISO(values.date, values.start);
