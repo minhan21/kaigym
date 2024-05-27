@@ -1,20 +1,19 @@
 import { StyleSheet, TouchableOpacity } from "react-native";
-
 import Block from "@components/BaseComponent/Block";
-import Typography from "@components/BaseComponent/Text";
 import Colors from "@constants/Colors";
 import Icon from "@components/Icon";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { NavigationTypes } from "@navigation/navigationTypes";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import LoadingScreen from "@components/BaseComponent/Loading";
 import TennisStageManagement from "@components/FeatureComponent/TennisStageManagement";
 import { getStagesByUserId } from "fireStoreCollection/Feature/stageCollection";
 import { useSelector } from "react-redux";
+import { RootState } from "utils/stateTypes";
 
 const OwnerHomeScreen = () => {
-  const { userData } = useSelector((state) => state.user);
+  const { userData } = useSelector((state: RootState) => state.user);
   const navigation = useNavigation<StackNavigationProp<NavigationTypes>>();
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -46,7 +45,7 @@ const OwnerHomeScreen = () => {
   if (loading) {
     return <LoadingScreen />;
   }
-  console.log(records, "records");
+
   return (
     <Block radius={0} flex backgroundColor={Colors.light.white}>
       <TouchableOpacity

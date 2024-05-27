@@ -1,15 +1,12 @@
-import { object, string, date, number } from "yup";
+import { object, string, number, mixed } from "yup";
 
 export const reservationValidate = object().shape({
   customerEmail: string()
     .trim()
     .email("Địa chỉ email không hợp lệ")
     .required("Email khách hàng là bắt buộc"),
-
-  date: date()
-    .required("Ngày là bắt buộc")
-    .typeError("Định dạng ngày không hợp lệ"),
-
+  title: string().trim().required("Tiêu đề là bắt buộc"),
+  date: string().required("Ngày là bắt buộc"),
   start: string()
     .trim()
     .matches(
@@ -32,8 +29,8 @@ export const reservationValidate = object().shape({
     .typeError("Giá phải là một số"),
 
   note: string().trim().max(500, "Ghi chú không thể vượt quá 500 ký tự"),
-
-  status: string()
-    .oneOf(["holding", "available", "reserved"], "Trạng thái không hợp lệ")
+  color: string().notRequired(),
+  status: mixed<"holding" | "available" | "reserved">()
+    .oneOf(["holding", "available", "reserved"])
     .required("Trạng thái là bắt buộc"),
 });

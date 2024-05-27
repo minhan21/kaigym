@@ -9,7 +9,6 @@ interface OnboardingNavigatorProps {
 const OnboardingNavigator: React.FC<OnboardingNavigatorProps> = ({
   isLoading,
 }) => {
-  console.log(isLoading, "isLoading OnboardingNavigator");
   return (
     <Stack.Navigator>
       {isLoading ? (

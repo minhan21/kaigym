@@ -41,12 +41,6 @@ const Typography = forwardRef<any, ITypography>((props, ref) => {
     ...textProps
   } = props;
 
-  const DEFAULT_LINE_HEIGHT = Helper.calculateLineHeight(
-    getSize.m(size),
-    IOS_LINE_HEIGHT_MULTIPLIER,
-    ANDROID_LINE_HEIGHT_MULTIPLIER
-  );
-
   const textStyle: any = [
     flex && { flex: 1 },
     flexShrink && { flexShrink: 1 },
@@ -69,9 +63,7 @@ const Typography = forwardRef<any, ITypography>((props, ref) => {
     paddingVertical && { paddingVertical: getSize.m(paddingVertical) },
     marginHorizontal && { marginHorizontal: getSize.m(marginHorizontal) },
     marginVertical && { marginVertical: getSize.m(marginVertical) },
-    { lineHeight: isNumber(lineHeight) ? lineHeight : 0 },
     { fontSize: getSize.m(size) },
-    { fontFamily: Fonts.regular },
     { ...StyleSheet.flatten(style) },
   ];
 

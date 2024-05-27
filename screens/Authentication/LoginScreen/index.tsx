@@ -44,7 +44,6 @@ const LoginScreen = () => {
   const handleAccountLogin = async (values: LoginFormParams) => {
     setLoading(true); // Start loading
     const result = await loginUser(values);
-    console.log(result, "result");
     if (result.success) {
       dispatch(
         setUser({ userData: result.user, userDetails: result.userDetails })

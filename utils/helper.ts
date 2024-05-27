@@ -45,8 +45,6 @@ const Helper = {
   },
 
   handleFirestoreError(error) {
-    console.log(error.code, "error.code"); // Log the error code for debugging
-
     switch (error.code) {
       case "permission-denied":
         return showErrorToast(

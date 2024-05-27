@@ -34,7 +34,7 @@ export async function registerUser(params) {
       title: "Success",
       content: "User registration successful",
     });
-    console.log("User registered and data saved in Firestore with ID:", userId);
+
     return { success: true, userId: userId };
   } catch (error) {
     Helper.handleFirestoreError(error);
@@ -43,7 +43,6 @@ export async function registerUser(params) {
 }
 
 export async function loginUser(params) {
-  console.log(params, "params");
   const auth = getAuth();
   const db = getFirestore();
 

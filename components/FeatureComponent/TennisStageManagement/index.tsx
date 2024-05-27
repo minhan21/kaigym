@@ -8,9 +8,11 @@ import CalendarKit, {
 } from "@howljs/calendar-kit";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { SafeAreaView, StyleSheet, Text } from "react-native";
+import { Platform, SafeAreaView, StatusBar, StyleSheet } from "react-native";
 import Fonts from "@constants/Fonts";
 import FontSize from "@constants/FontSize";
+import CustomModal from "@components/BaseComponent/CustomModal";
+import Button from "@components/FormComponent/Button";
 
 interface Props {
   data: EventItem[];
@@ -35,6 +37,13 @@ const INITIAL_DATE = new Date(
 ).toISOString();
 
 const TennisStageManagement = (props: Props) => {
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [events, setEvents] = useState<EventItem[]>([]);
+  const [dataModal, setdataModal] = useState<any>({});
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
   const calendarRef = useRef<CalendarKitHandle>(null);
   const unavailableHours = useMemo(
     () => [
@@ -43,7 +52,6 @@ const TennisStageManagement = (props: Props) => {
     ],
     []
   );
-  const [events, setEvents] = useState<EventItem[]>([]);
   useEffect(() => {
     setEvents(props.data);
     return () => {};
@@ -67,29 +75,49 @@ const TennisStageManagement = (props: Props) => {
     }),
     []
   );
-  const _renderEvent = useCallback(
-    (data) => {
-      console.log(data, "data");
-      return (
-        <Block>
-          <Typography style={styles.eventTitle}>{data.title}</Typography>
-          <Typography style={styles.eventTime}>
-            {moment(data.start).format("HH:mm")} :
-            {moment(data.end).format("HH:mm")}{" "}
-          </Typography>
-          <Typography style={styles.eventTime}>{data.status}</Typography>
-          <Typography style={styles.eventTime}>
-            ${data.price.toLocaleString()}
-          </Typography>
-        </Block>
-      );
-    },
 
-    []
-  );
+  const _onPressEventItem = (data) => {
+    console.log(data);
+    setModalVisible(!isModalVisible);
+    setdataModal(data);
+  };
+  const _renderEvent = useCallback((data) => {
+    return (
+      <Block>
+        <Typography style={styles.eventTitle}>{data.title}</Typography>
+        <Typography style={styles.eventTime}>
+          {moment(data.start).format("HH:mm")} :
+          {moment(data.end).format("HH:mm")}{" "}
+        </Typography>
+        <Typography style={styles.eventTime}>{data.status}</Typography>
+        <Typography style={styles.eventTime}>
+          ${data.price.toLocaleString()}
+        </Typography>
+      </Block>
+    );
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
+      <CustomModal
+        isVisible={isModalVisible}
+        onClose={toggleModal}
+        title={dataModal.title}
+        animationIn="zoomIn"
+        animationOut="zoomOut"
+        backdropColor="grey"
+        backdropOpacity={0.8}
+        backgroundColor={dataModal.color}
+      >
+        <Typography>Email khách:{dataModal.customerEmail}</Typography>
+        <Typography>
+          Thời gian: {moment(dataModal.start).format("HH:mm")} -
+          {moment(dataModal.end).format("HH:mm")}
+        </Typography>
+        <Typography>Trạng thái: {dataModal.status}</Typography>
+        <Typography>Tổng tiền: ${dataModal.price.toLocaleString()}</Typography>
+        <Typography>Ghi chú: {dataModal.note}</Typography>
+      </CustomModal>
       <CalendarKit
         ref={calendarRef}
         viewMode={"week"}
@@ -105,10 +133,10 @@ const TennisStageManagement = (props: Props) => {
         initialDate={INITIAL_DATE}
         onPressDayNumber={_onPressDayNumber}
         onPressBackground={_onPressBackground}
-        unavailableHours={unavailableHours}
+        // unavailableHours={unavailableHours}r
         highlightDates={highlightDates}
         events={events}
-        onPressEvent={console.log}
+        onPressEvent={_onPressEventItem}
         renderEvent={_renderEvent}
         scrollToNow
         rightEdgeSpacing={1}
@@ -121,7 +149,11 @@ const TennisStageManagement = (props: Props) => {
 export default TennisStageManagement;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#FFF" },
+  container: {
+    flex: 1,
+    backgroundColor: "#FFF",
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+  },
   eventTitle: {
     fontFamily: Fonts.semiBold,
     fontSize: FontSize.caption,
@@ -129,5 +161,8 @@ const styles = StyleSheet.create({
   eventTime: {
     fontFamily: Fonts.italic,
     fontSize: FontSize.too_caption,
+  },
+  customModalStyle: {
+    alignItems: "center",
   },
 });
